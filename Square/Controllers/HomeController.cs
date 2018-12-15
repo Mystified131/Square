@@ -36,6 +36,7 @@ namespace Square.Controllers
                 Squareshape qbert = new Squareshape("qbert", resultViewModel.sidelength);
 
                 resultViewModel.Area = qbert.Area(resultViewModel.sidelength);
+                resultViewModel.Perimeter = qbert.Perimeter(resultViewModel.sidelength);
 
                 return View(resultViewModel);
             }

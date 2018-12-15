@@ -11,6 +11,7 @@ namespace Square.ViewModels
         [Required]
         public double sidelength { get; set; }
         public double Area { get; set; }
+        public double Perimeter { get; set; }
         public String Error { get; set; }
     }
 }
