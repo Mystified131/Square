@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Square.Models;
+using Square.ViewModels;
 
 namespace Square.Controllers
 {
@@ -12,32 +13,40 @@ namespace Square.Controllers
     {
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
 
             return View();
         }
-
-        public IActionResult Contact()
+    
+        public IActionResult Result()
         {
-            ViewData["Message"] = "Your contact page.";
+            ResultViewModel resultViewModel = new ResultViewModel();
 
-            return View();
+            resultViewModel.Error = "There is no value to asses the square's area. Please return to the Home page.";
+
+            return View(resultViewModel);
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult Result(ResultViewModel resultViewModel)
+
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+
+                Squareshape qbert = new Squareshape("qbert", resultViewModel.sidelength);
+
+                resultViewModel.Area = qbert.Area(resultViewModel.sidelength);
+
+                return View(resultViewModel);
+            }
+
+            return Redirect("/");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
+
+
+
+
+
 }
